@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* margin: 30px; */
+
+  /* background-size: 100%; */
+  /* background-color: white; */
+}
+.main {
+  background-image: url("./images/nasa-Q1p7bh3SHj8-unsplash.jpg");
+  background-size: cover;
+  height: 100vh;
+}
+
+.main .mainTitle {
+  color: white;
+  font-size: 90px;
+  font-family: "Courier New", Courier, monospace;
+  position: absolute;
+  top: 50vh;
+  left: 40%;
+}
+
+.navbar ul {
+  list-style: none;
+  color: white;
+  font-size: 25px;
+  font-weight: 900;
+  margin: 30px;
+}
+.navbar ul li {
+  display: inline;
+  margin-right: 45px;
+  cursor: pointer;
+}
+.nav-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: sticky;
+}
+
+.navbar .logo {
+  margin: 30px;
+  width: 300px;
+  cursor: pointer;
+}
+
+.navbar .toggle {
+  position: absolute;
+  top: -0.5rem;
+  right: 1rem;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+}
+
+.navbar .toggle .bar {
+  height: 3px;
+  width: 30px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.main span {
+  position: absolute;
+  top: 150%;
+  left: 40%;
+  font-size: 70px;
+  font-weight: 900;
+}
+
+@media (max-width: 650px) {
+  /* .second .launches {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 50px;
+  } */
+  .toggle {
+    display: flex;
+  }
+  .navbar-links {
+    display: none;
+  }
+  .navbar-links ul li {
+    margin-top: 10px;
+  }
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .navbar-links.active {
+    display: flex;
+  }
+}
