@@ -37,13 +37,7 @@ function showData(data) {
   const launch = document.querySelector(".l");
   const paginationElement = document.querySelector(".pagination");
   const list = document.querySelectorAll(".pagination ul li");
-
-  for (let i = 0; i < list.length; i++) {
-    list[i].addEventListener("click", function () {
-      console.log("Shamil");
-    });
-  }
-
+  const pageButton = document.querySelector(".pagination ul");
   let currentPage = 1;
   let numberOfElements = 5;
 
@@ -76,19 +70,49 @@ function showData(data) {
     }
   }
 
-  function SetupPagination() {
+  function setupPagination(items, wrapper, numberOfElements) {
     wrapper.innerHTML = "";
+    let pageCount = Math.ceil(items.length / numberOfElements);
+    for (let i = 1; i <= 10; i++) {
+      let btn = PaginationButton(i, items);
+      wrapper.appendChild(btn);
+      console.log(btn);
+    }
   }
 
+  function PaginationButton(page) {
+    // wrapper.innerHTML = "";
+    let btn = document.createElement("li");
+    btn.classList.add("page-item");
+    btn.classList.add("current-page");
+    btn.innerText = page;
+    if (currentPage == page) btn.classList.add("active");
+
+    btn.addEventListener("click", function () {
+      currentPage = page;
+      displayList(data[0], launch, numberOfElements, currentPage);
+    });
+
+    return btn;
+  }
+
+  setupPagination(data[0], pageButton, numberOfElements);
+
+  function paginate(item) {
+    item = data[0];
+    console.log(this.id);
+
+    currentPage = page;
+    displayList(item, launch, numberOfElements, currentPage);
+    // if (this.id === "prev") {
+    //   list[1].classList.add("active");
+    // }
+    // if (this.id === "2") {
+    //   list[2].classList.add("active");
+    // }
+  }
   displayList(data[0], launch, numberOfElements, currentPage);
 
-  for (let j = 1; j <= 10; j++) {
-    // launch.innerHTML = `<img src='${
-    //   data[0][menu[j - 1][0]].links.flickr.original[menu[j - 1][1]]
-    // }'/>
-    // <h1>${data[0][menu[j - 1][0]].name}</h1>
-    // <button class='btn' id='bt${j}' onClick="reply(this.id)">Learn more</button>`;
-  }
   modal();
   count();
 }
