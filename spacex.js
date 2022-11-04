@@ -1,11 +1,9 @@
 const api_url = "https://api.spacexdata.com/v5/launches/";
 // Code is messy. Consider group functions or related things etc...
 
-//Consider using let and const!
 var launches = [];
 
 async function fetchData(url) {
-  // There isn't error handling with try catch
   try {
     const response = await fetch(url);
     var data = await response.json();
@@ -14,7 +12,6 @@ async function fetchData(url) {
   } catch (error) {
     console.log(error);
   }
-  //Remove log if not using them
 }
 
 fetchData(api_url);
@@ -39,7 +36,7 @@ function showData(data) {
   const list = document.querySelectorAll(".pagination ul li");
   const pageButton = document.querySelector(".pagination ul");
   let currentPage = 1;
-  let numberOfElements = 5;
+  let numberOfElements = 10;
 
   function displayList(items, wrapper, rowsperpage, page) {
     wrapper.innerHTML = "";
@@ -47,23 +44,33 @@ function showData(data) {
 
     let start = rowsperpage * page;
     let end = start + rowsperpage;
-    let paginatedItems = items.slice(start, end);
-
+    var paginatedItems = items.slice(start, end);
+    console.log("shamil: ", paginatedItems);
+    // console.log(items.links.flickr.original);
     for (let i = 0; i < paginatedItems.length; i++) {
       let item = paginatedItems[i];
-      console.log(i);
-      console.log(item);
-      let la = `
-      <h1>${item.name}</h1>
-      `;
-      {
-        // <img src='${item.links.flickr.original[menu[i][1]]}'/>
-        /* <button class='btn' id='bt${i}' onClick="reply(this.id)">Learn more</button> */
+      console.log("i: ", i);
+      // console.log(item.links.flickr.original);
+      if (item.links.flickr.original.length !== 0) {
+        var la = `
+        <img src='${item.links.flickr.original[menu[i][1]]}'/>
+        <h1>${item.name}</h1>
+        <button class='btn' id='${i}' onClick="reply(this.id)">Learn more</button>
+        `;
+      }
+      if (item.links.flickr.original.length === 0) {
+        var la = `
+        <img src='./x.jpg'/>
+        <h1>${item.name}</h1>
+        <button class='btn' id='${i}' onClick="reply(this.id)">Learn more</button>
+        `;
       }
       console.log(la);
       let itemElement = document.createElement("div");
       itemElement.classList.add("item");
-      itemElement.innerHTML = la;
+      if (la !== undefined) {
+        itemElement.innerHTML = la;
+      }
       console.log(itemElement);
       // launch.innerHTML = la;
       wrapper.appendChild(itemElement);
@@ -73,7 +80,7 @@ function showData(data) {
   function setupPagination(items, wrapper, numberOfElements) {
     wrapper.innerHTML = "";
     let pageCount = Math.ceil(items.length / numberOfElements);
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= pageCount; i++) {
       let btn = PaginationButton(i, items);
       wrapper.appendChild(btn);
       console.log(btn);
@@ -86,7 +93,10 @@ function showData(data) {
     btn.classList.add("page-item");
     btn.classList.add("current-page");
     btn.innerText = page;
-    if (currentPage == page) btn.classList.add("active");
+    if (currentPage == page) {
+      btn.classList.add("active");
+      console.log(btn);
+    }
 
     btn.addEventListener("click", function () {
       currentPage = page;
@@ -123,7 +133,7 @@ function modal() {
 
   for (let i = 1; i <= 10; i++) {
     // console.log(document.querySelector(`#bt${i}`));
-    // document.querySelector(`#bt${i}`).onclick = reply;
+    document.querySelector(`.btn`).onclick = reply;
   }
 
   function reply() {
@@ -145,7 +155,7 @@ function modal() {
 
 function contents(content) {
   // Don't repeat yourself!!!
-  if (content === "bt1") {
+  if (content === "1") {
     var b1 = `<iframe width="70%" height='400vh' src='https://www.youtube.com/embed/${launches[0][20].links.youtube_id}' autoplay=1&mute=1">
     </iframe>
     <h1>${launches[0][20].name}</h1>
