@@ -45,11 +45,12 @@ function showData(data) {
     let start = rowsperpage * page;
     let end = start + rowsperpage;
     var paginatedItems = items.slice(start, end);
-    console.log("shamil: ", paginatedItems);
+    // console.log("shamil: ", paginatedItems);
     // console.log(items.links.flickr.original);
     for (let i = 0; i < paginatedItems.length; i++) {
       let item = paginatedItems[i];
-      console.log("i: ", i);
+
+      // console.log("i: ", i);
       // console.log(item.links.flickr.original);
       if (item.links.flickr.original.length !== 0) {
         var la = `
@@ -87,7 +88,7 @@ function showData(data) {
     }
   }
 
-  function PaginationButton(page) {
+  function PaginationButton(page, item) {
     // wrapper.innerHTML = "";
     let btn = document.createElement("li");
     btn.classList.add("page-item");
@@ -95,12 +96,17 @@ function showData(data) {
     btn.innerText = page;
     if (currentPage == page) {
       btn.classList.add("active");
-      console.log(btn);
+      console.log("button: ", page);
     }
 
     btn.addEventListener("click", function () {
       currentPage = page;
       displayList(data[0], launch, numberOfElements, currentPage);
+
+      let currentBtn = document.querySelector(".pagination li.active");
+      currentBtn.classList.remove("active");
+
+      btn.classList.add("active");
     });
 
     return btn;
@@ -110,10 +116,11 @@ function showData(data) {
 
   function paginate(item) {
     item = data[0];
-    console.log(this.id);
+    console.log();
 
     currentPage = page;
     displayList(item, launch, numberOfElements, currentPage);
+
     // if (this.id === "prev") {
     //   list[1].classList.add("active");
     // }
@@ -123,15 +130,16 @@ function showData(data) {
   }
   displayList(data[0], launch, numberOfElements, currentPage);
 
-  modal();
+  modal(data);
   count();
 }
 
-function modal() {
+function modal(data) {
   var modal = document.getElementById("my-modal");
   var span = document.getElementsByClassName("close")[0];
 
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= data[0].length; i++) {
+    console.log("data: ", data[0]);
     // console.log(document.querySelector(`#bt${i}`));
     document.querySelector(`.btn`).onclick = reply;
   }
@@ -155,7 +163,7 @@ function modal() {
 
 function contents(content) {
   // Don't repeat yourself!!!
-  if (content === "1") {
+  if (content === "0") {
     var b1 = `<iframe width="70%" height='400vh' src='https://www.youtube.com/embed/${launches[0][20].links.youtube_id}' autoplay=1&mute=1">
     </iframe>
     <h1>${launches[0][20].name}</h1>
