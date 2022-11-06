@@ -124,8 +124,6 @@ function modal(data, activeButton) {
     document.getElementById(`${i}`).onclick = reply;
   }
 
-  // console.log();
-
   function reply() {
     console.log(this.id);
     modal.style.display = "block";
@@ -143,7 +141,7 @@ function modal(data, activeButton) {
 }
 
 function contents(content, p) {
-  console.log("pagess ", currentPage);
+  console.log("pagess ", p);
   for (let i = 0; i <= 10; i++) {
     if (content === `${i}`) {
       var b1 = `<iframe width="70%" height='400vh' src='https://www.youtube.com/embed/${launches[0][i].links.youtube_id}' autoplay=1&mute=1">
