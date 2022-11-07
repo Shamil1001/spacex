@@ -10,12 +10,13 @@ async function fetchData(url) {
     launches.push(data);
     showData(launches);
   } catch (error) {
+    // Alert. Display error
     console.log(error);
   }
 }
 
 fetchData(api_url);
-
+//redundant code
 function showData(data) {
   var menu = [
     [20, 2],
@@ -29,22 +30,22 @@ function showData(data) {
     [29, 7],
     [30, 4],
   ];
-
+  // use semantic classes
   const launch = document.querySelector(".l");
   const pageButton = document.querySelector(".pagination ul");
   var currentPage = 1;
   let numberOfElements = 10;
-
+  // if a function takes params more than 3 is not a good function
   function displayList(items, wrapper, rowsperpage, page) {
     wrapper.innerHTML = "";
     page--;
 
-    let start = rowsperpage * page;
+    var start = rowsperpage * page;
     let end = start + rowsperpage;
     var paginatedItems = items.slice(start, end);
     for (let i = 0; i < paginatedItems.length; i++) {
       var item = paginatedItems[i];
-
+      //remove console.log
       console.log("i: ", start);
       if (item.links.flickr.original.length !== 0) {
         var la = `
@@ -65,6 +66,7 @@ function showData(data) {
       if (la !== undefined) {
         itemElement.innerHTML = la;
       }
+      //remove console.log
       console.log(itemElement);
       wrapper.appendChild(itemElement);
     }
@@ -80,6 +82,7 @@ function showData(data) {
   }
 
   function PaginationButton(page, item) {
+    //unused function param 'item'
     let btn = document.createElement("li");
     btn.classList.add("page-item");
     btn.classList.add("current-page");
@@ -94,7 +97,6 @@ function showData(data) {
 
       let currentBtn = document.querySelector(".pagination li.active");
       currentBtn.classList.remove("active");
-      // console.log("page: ", currentPage);
       btn.classList.add("active");
     });
 
@@ -108,13 +110,14 @@ function showData(data) {
 }
 
 function modal(data, activeButton) {
+  //unused function param
   var modal = document.getElementById("my-modal");
   var span = document.getElementsByClassName("close")[0];
-  // console.log(data);
   for (let i = 0; i < 10; i++) {
-    // console.log(i);
     document.getElementById(`${i}`).onclick = reply;
   }
+  // document.querySelectorAll(".item .btn").onclick = reply;
+  // document.querySelectorAll(".item .btn").onclick = reply;
 
   function reply() {
     modal.style.display = "block";
@@ -131,9 +134,8 @@ function modal(data, activeButton) {
   };
 }
 
-function contents(content, p) {
-  console.log("pagess ", content);
-  for (let i = 0; i <= 10; i++) {
+function contents(content) {
+  for (let i = 0; i <= 204; i++) {
     if (content === `${i}`) {
       var b1 = `<iframe width="70%" height='400vh' src='https://www.youtube.com/embed/${launches[0][i].links.youtube_id}' autoplay=1&mute=1">
       </iframe>
