@@ -17,7 +17,6 @@ async function fetchData(url) {
 fetchData(api_url);
 
 function showData(data) {
-  // var tab = `<h4>${data[0].date_precision}</h4>`;
   var menu = [
     [20, 2],
     [21, 2],
@@ -32,8 +31,6 @@ function showData(data) {
   ];
 
   const launch = document.querySelector(".l");
-  const paginationElement = document.querySelector(".pagination");
-  const list = document.querySelectorAll(".pagination ul li");
   const pageButton = document.querySelector(".pagination ul");
   var currentPage = 1;
   let numberOfElements = 10;
@@ -46,31 +43,29 @@ function showData(data) {
     let end = start + rowsperpage;
     var paginatedItems = items.slice(start, end);
     for (let i = 0; i < paginatedItems.length; i++) {
-      let item = paginatedItems[i];
+      var item = paginatedItems[i];
 
-      console.log("i: ", i);
+      console.log("i: ", start);
       if (item.links.flickr.original.length !== 0) {
         var la = `
         <img src='${item.links.flickr.original[menu[i][1]]}'/>
         <h1>${item.name}</h1>
-        <button class='btn' id='${i}'">Learn more</button>
+        <button class='btn' id='${i + start}'">Learn more</button>
         `;
       }
       if (item.links.flickr.original.length === 0) {
         var la = `
         <img src='./x.jpg'/>
         <h1>${item.name}</h1>
-        <button class='btn' id='${i}'">Learn more</button>
+        <button class='btn' id='${i + start}'">Learn more</button>
         `;
       }
-      // console.log(la);
       let itemElement = document.createElement("div");
       itemElement.classList.add("item");
       if (la !== undefined) {
         itemElement.innerHTML = la;
       }
       console.log(itemElement);
-      // launch.innerHTML = la;
       wrapper.appendChild(itemElement);
     }
   }
@@ -85,7 +80,6 @@ function showData(data) {
   }
 
   function PaginationButton(page, item) {
-    // wrapper.innerHTML = "";
     let btn = document.createElement("li");
     btn.classList.add("page-item");
     btn.classList.add("current-page");
@@ -108,26 +102,23 @@ function showData(data) {
   }
 
   setupPagination(data[0], pageButton, numberOfElements);
-
   displayList(data[0], launch, numberOfElements, currentPage);
-
-  modal(data, currentPage);
+  modal(data[0], currentPage);
   count();
 }
 
 function modal(data, activeButton) {
   var modal = document.getElementById("my-modal");
   var span = document.getElementsByClassName("close")[0];
-
+  // console.log(data);
   for (let i = 0; i < 10; i++) {
-    // console.log(document.querySelector(`#bt${i}`));
+    // console.log(i);
     document.getElementById(`${i}`).onclick = reply;
   }
 
   function reply() {
-    console.log(this.id);
     modal.style.display = "block";
-    contents(this.id, activeButton);
+    contents(this.id);
   }
   span.onclick = function () {
     modal.style.display = "none";
@@ -141,7 +132,7 @@ function modal(data, activeButton) {
 }
 
 function contents(content, p) {
-  console.log("pagess ", p);
+  console.log("pagess ", content);
   for (let i = 0; i <= 10; i++) {
     if (content === `${i}`) {
       var b1 = `<iframe width="70%" height='400vh' src='https://www.youtube.com/embed/${launches[0][i].links.youtube_id}' autoplay=1&mute=1">
@@ -171,3 +162,12 @@ function count() {
     }, duration);
   });
 }
+
+const toggleButton = document.getElementsByClassName("toggle")[0];
+const navbarLinks = document.getElementsByClassName("navbar-links")[0];
+console.log(toggleButton);
+
+toggleButton.addEventListener("click", () => {
+  navbarLinks.classList.toggle("act");
+  console.log("shamil");
+});

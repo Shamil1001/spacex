@@ -36,32 +36,32 @@ body {
   margin-right: 45px;
   cursor: pointer;
 }
-.nav-items {
+.navbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   position: sticky;
 }
 
-.navbar .logo {
+.navbar img {
   margin: 30px;
   width: 300px;
   cursor: pointer;
 }
 
-.navbar .toggle {
+.toggle {
   position: absolute;
-  top: -0.5rem;
-  right: 1rem;
+  top: 0.5rem;
+  right: 3rem;
   margin-bottom: 10px;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-between;
   width: 30px;
   height: 21px;
 }
 
-.navbar .toggle .bar {
+.toggle .bar {
   height: 3px;
   width: 30px;
   background-color: white;
@@ -82,7 +82,7 @@ body {
     grid-template-columns: 1fr;
     gap: 50px;
   } */
-  .toggle {
+  .navbar .toggle {
     display: flex;
   }
   .navbar-links {
@@ -95,7 +95,9 @@ body {
     flex-direction: column;
     align-items: flex-start;
   }
-  .navbar-links.active {
+  .navbar-links.act {
     display: flex;
+    margin-left: 100px;
+    margin-top: 30px;
   }
 }
