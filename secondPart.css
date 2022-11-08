@@ -83,9 +83,11 @@
   box-shadow: 0px 5px 25px rgb(1 1 1/10%);
 }
 
-.previous-page,
-.next-page {
-  background-color: blue;
+.prev-page,
+.next-page,
+.start-page,
+.end-page {
+  background-color: red;
   width: 80px;
   border-radius: 45px;
   cursor: pointer;
@@ -94,11 +96,13 @@
   line-height: 45px;
 }
 
-.previous-page:hover {
+.prev-page:hover,
+.start-page:hover {
   transform: translateX(-5px);
 }
 
-.next-page:hover {
+.next-page:hover,
+.end-page:hover {
   transform: translateX(5px);
 }
 

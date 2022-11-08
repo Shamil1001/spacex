@@ -72,17 +72,60 @@ function showData(data) {
     }
   }
 
-  function setupPagination(items, wrapper, numberOfElements) {
+  function setupPagination(items, wrapper, numberOfElements, page) {
     wrapper.innerHTML = "";
     let pageCount = Math.ceil(items.length / numberOfElements);
-    for (let i = 1; i <= pageCount; i++) {
-      let btn = PaginationButton(i, items);
-      wrapper.appendChild(btn);
-    }
+    let prev = document.createElement("li");
+    prev.classList.add("page-item");
+    prev.classList.add("prev-page");
+    prev.innerText = "Prev";
+    let next = document.createElement("li");
+    next.classList.add("page-item");
+    next.classList.add("next-page");
+    next.innerText = "Next";
+    let end = document.createElement("li");
+    end.classList.add("page-item");
+    end.classList.add("end-page");
+    end.innerText = "End";
+    let start = document.createElement("li");
+    start.classList.add("page-item");
+    start.classList.add("start-page");
+    start.innerText = "Start";
+    wrapper.appendChild(start);
+    wrapper.appendChild(prev);
+
+    const pageNumbers = (total, max, current) => {
+      const half = Math.round(max / 2);
+      let to = max;
+
+      if (current + half >= total) {
+        to = total;
+      } else if (current > half) {
+        to = current + half;
+      }
+
+      let from = to - max;
+
+      let arr = Array.from({ length: max }, (_, i) => i + 1 + from);
+      arr.map((p) => {
+        let btn = PaginationButton(p);
+        wrapper.appendChild(btn);
+      });
+    };
+
+    pageNumbers(pageCount, 6, page);
+
+    // for (let i = 1; i <= pageCount; i++) {
+    //   let btn = PaginationButton(i);
+    //   wrapper.appendChild(btn);
+    // }
+    wrapper.appendChild(next);
+    wrapper.appendChild(end);
   }
 
-  function PaginationButton(page, item) {
+  function PaginationButton(page) {
     //unused function param 'item'
+
     let btn = document.createElement("li");
     btn.classList.add("page-item");
     btn.classList.add("current-page");
@@ -103,7 +146,7 @@ function showData(data) {
     return btn;
   }
 
-  setupPagination(data[0], pageButton, numberOfElements);
+  setupPagination(data[0], pageButton, numberOfElements, currentPage);
   displayList(data[0], launch, numberOfElements, currentPage);
   modal(data[0], currentPage);
   count();
@@ -116,8 +159,6 @@ function modal(data, activeButton) {
   for (let i = 0; i < 10; i++) {
     document.getElementById(`${i}`).onclick = reply;
   }
-  // document.querySelectorAll(".item .btn").onclick = reply;
-  // document.querySelectorAll(".item .btn").onclick = reply;
 
   function reply() {
     modal.style.display = "block";
