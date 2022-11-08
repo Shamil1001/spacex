@@ -111,6 +111,12 @@ function showData(data) {
         let btn = PaginationButton(p);
         wrapper.appendChild(btn);
       });
+      const disabled = {
+        start: () => arr[0] === 1,
+        prev: () => current === 1,
+        end: () => arr.slice(-1)[0] === total,
+        next: () => current === total,
+      };
     };
 
     pageNumbers(pageCount, 6, page);
